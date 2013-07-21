@@ -59,7 +59,6 @@ Configurable parameters are stored as JSON in a config.json file alongside the a
 	</tr>
 </table>
 
-`http://radar.weather.gov/Conus/Loop/NatLoop_Small.gif`
 # License
 ##Zlib License
 Copyright (c) 2013 Chris Burger
