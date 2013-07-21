@@ -1,0 +1,14 @@
+{
+	"radShiftX": 0,
+	"radShiftY": 0,
+	"radImgSizeX": 400,
+	"radImgSizeY": 366,
+	"refreshRadarTime": 150000,
+	"refreshNWSTime": 600000,
+	"SAMEcode": "045043",
+	"radarUrl": "http://192.168.2.218/getimg.php?img=MKX_loop_fix.gif&x=%d&y=%d",
+	"alertBgColor": "white",
+	"alertFgColor": "red",
+	"alertFontSize": 12,
+	"panelBgColor": "black"
+}

@@ -1,0 +1,2 @@
+iso8601>=0.1.4
+WeatherAlerts==0.5.0rc6
