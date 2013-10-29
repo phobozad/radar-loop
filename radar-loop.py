@@ -247,7 +247,40 @@ frame.RegisterHotKey(100,wx.MOD_ALT,84)
 frame.Bind(wx.EVT_HOTKEY, toggleTaskBar, None, 100)
 
 
+def appClean(event):
+	taskBarIcon.Destroy()
+	frame.Destroy()
+	unhide_taskbar()
+
+def create_menu_item(menu, label, func):
+    item = wx.MenuItem(menu, -1, label)
+    menu.Bind(wx.EVT_MENU, func, id=item.GetId())
+    menu.AppendItem(item)
+    return item
+
+
+class TaskBarIcon(wx.TaskBarIcon):
+    def __init__(self):
+        super(TaskBarIcon, self).__init__()
+        self.set_icon('icon.png')
+
+    def CreatePopupMenu(self):
+        menu = wx.Menu()
+        create_menu_item(menu, 'Exit', self.on_exit)
+        return menu
+
+    def set_icon(self, path):
+        icon = wx.IconFromBitmap(wx.Bitmap(path))
+        self.SetIcon(icon, "NWS Alert Checker")
+
+    def on_exit(self, event):
+        wx.CallAfter(self.Destroy)
+        frame.Destroy()
+
+
+frame.Bind(wx.EVT_CLOSE, appClean)
+
+
+taskBarIcon=TaskBarIcon()
 # start the event loop
 app.MainLoop()
-
-unhide_taskbar()
