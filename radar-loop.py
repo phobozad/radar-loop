@@ -1,7 +1,7 @@
 # display an animated GIF image file using wxPython
 # tested with Python24 and wxPython26    vegaseat   22nov2005
 import wx
-import wx.animate     
+import wx.animate
 import urllib
 from weatheralerts import WeatherAlerts
 import json
@@ -23,29 +23,29 @@ taskBarVis=1
 FindWindow = ctypes.windll.user32.FindWindowA
 FindWindow.restype = wintypes.HWND
 FindWindow.argtypes = [
-    wintypes.LPCSTR, #lpClassName
-    wintypes.LPCSTR, #lpWindowName
+	wintypes.LPCSTR, #lpClassName
+	wintypes.LPCSTR, #lpWindowName
 ]
 
 SetWindowPos = ctypes.windll.user32.SetWindowPos
 SetWindowPos.restype = wintypes.BOOL
 SetWindowPos.argtypes = [
-    wintypes.HWND, #hWnd
-    wintypes.HWND, #hWndInsertAfter
-    ctypes.c_int,  #X
-    ctypes.c_int,  #Y
-    ctypes.c_int,  #cx
-    ctypes.c_int,  #cy
-    ctypes.c_uint, #uFlags
+	wintypes.HWND, #hWnd
+	wintypes.HWND, #hWndInsertAfter
+	ctypes.c_int,  #X
+	ctypes.c_int,  #Y
+	ctypes.c_int,  #cx
+	ctypes.c_int,  #cy
+	ctypes.c_uint, #uFlags
 ] 
 
 FindWindowEx = ctypes.windll.user32.FindWindowExA
 FindWindowEx.restype = wintypes.HWND
 FindWindowEx.argtypes = [
-   wintypes.HWND, # hwndParent
-   wintypes.HWND, # hwndChildAfter
-   wintypes.LPCSTR, # lpszClass
-   wintypes.LPCSTR, # lpszWindow
+	wintypes.HWND, # hwndParent
+	wintypes.HWND, # hwndChildAfter
+	wintypes.LPCSTR, # lpszClass
+	wintypes.LPCSTR, # lpszWindow
 ]
 
 start_atom = wintypes.LPCSTR(0xc017)
@@ -136,7 +136,7 @@ radarUrl= radarUrl % {'radImgSizeX': radImgSizeX, 'radImgSizeY': radImgSizeY, 'z
 
 ##### Begin NWS updater code
 def updateNWS(event):
-	#try:
+	try:
 		nws=WeatherAlerts(samecodes=SAMEcode)
 		stopAlert()
 		if nws.alerts:
@@ -150,8 +150,8 @@ def updateNWS(event):
 		else:
 			#print "No Alerts for", SAMEcode
 			stopAlert()
-	#except Exception:
-	#	pass
+	except Exception:
+		pass
 ##### End NWS updater code
 
 		
@@ -253,33 +253,42 @@ def appClean(event):
 	unhide_taskbar()
 
 def create_menu_item(menu, label, func):
-    item = wx.MenuItem(menu, -1, label)
-    menu.Bind(wx.EVT_MENU, func, id=item.GetId())
-    menu.AppendItem(item)
-    return item
+	item = wx.MenuItem(menu, -1, label)
+	menu.Bind(wx.EVT_MENU, func, id=item.GetId())
+	menu.AppendItem(item)
+	return item
 
 
 class TaskBarIcon(wx.TaskBarIcon):
-    def __init__(self):
-        super(TaskBarIcon, self).__init__()
-        self.set_icon('icon.png')
+	def __init__(self):
+		super(TaskBarIcon, self).__init__()
+		self.set_icon('icon.png')
 
-    def CreatePopupMenu(self):
-        menu = wx.Menu()
-        create_menu_item(menu, 'Exit', self.on_exit)
-        return menu
+	def CreatePopupMenu(self):
+		menu = wx.Menu()
+		create_menu_item(menu, 'Exit', self.on_exit)
+		return menu
 
-    def set_icon(self, path):
-        icon = wx.IconFromBitmap(wx.Bitmap(path))
-        self.SetIcon(icon, "NWS Alert Checker")
+	def set_icon(self, path):
+		icon = wx.IconFromBitmap(wx.Bitmap(path))
+		self.SetIcon(icon, "NWS Alert Checker")
 
-    def on_exit(self, event):
-        wx.CallAfter(self.Destroy)
-        frame.Destroy()
+	def on_exit(self, event):
+		wx.CallAfter(self.Destroy)
+		unhide_taskbar()
+		frame.Destroy()
 
 
 frame.Bind(wx.EVT_CLOSE, appClean)
 
+import signal
+import sys
+def signal_handler(signal, frame):
+	appClean(None)
+	sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGBREAK, signal_handler)
 
 taskBarIcon=TaskBarIcon()
 # start the event loop
