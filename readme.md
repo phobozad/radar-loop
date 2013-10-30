@@ -14,7 +14,7 @@ The following extra modules are used in this project:
  - iso8601
 
 # Configuration
-Configurable parameters are stored as JSON in a config.json file in the %ProgramData%\radar_loop folder.  See below for the list of options that should all be present in the config file.
+Configurable parameters are stored as JSON in a config.json file in the `%ProgramData%\radar_loop` folder.  See below for the list of options that should all be present in the config file.
 
 ## Parameters	
 <table>
