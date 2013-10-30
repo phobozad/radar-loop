@@ -92,7 +92,6 @@ refreshRadarTime=150000
 refreshNWSTime=600000
 SAMEcode="055133"
 radarUrl="http://radar.weather.gov/Conus/Loop/NatLoop_Small.gif"
-zipCode="53186"
 alertBgColor="white"
 alertFgColor="red"
 alertFontSize=12
@@ -111,7 +110,6 @@ try:
 	refreshNWSTime=config["refreshNWSTime"]
 	SAMEcode=str(config["SAMEcode"])
 	radarUrl=config["radarUrl"]
-	zipCode=str(config["zipCode"])
 	alertBgColor=config["alertBgColor"]
 	alertFgColor=config["alertFgColor"]
 	alertFontSize=config["alertFontSize"]
@@ -126,7 +124,7 @@ except Exception:
 tempFileName = os.path.join(tempfile.gettempdir(), "lastradar.gif")
 
 # Replace any parameters in the URL for any dynamically generated radar loops
-radarUrl= radarUrl % {'radImgSizeX': radImgSizeX, 'radImgSizeY': radImgSizeY, 'zipCode': zipCode}
+radarUrl= radarUrl % {'radImgSizeX': radImgSizeX, 'radImgSizeY': radImgSizeY}
 
 # Some example radar URLs that can work:
 # "http://www.adiabatic.weather.net/cgi-bin/razradar.cgi?zipcode=53186&width=%d&height=%d"

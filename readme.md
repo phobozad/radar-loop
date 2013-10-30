@@ -14,7 +14,7 @@ The following extra modules are used in this project:
  - iso8601
 
 # Configuration
-Configurable parameters are stored as JSON in a config.json file alongside the app.  See below for the list of options that should all pre present in the config file.
+Configurable parameters are stored as JSON in a config.json file in the %ProgramData%\radar_loop folder.  See below for the list of options that should all be present in the config file.
 
 ## Parameters	
 <table>
@@ -43,7 +43,11 @@ Configurable parameters are stored as JSON in a config.json file alongside the a
 		<td>SAMEcode</td> <td>String</td> <td>The SAME code(s) for the area(s) to check for alerts.  Note that this is string data.  For multiple SAME codes, format this as an array of strings.</td>
 	</tr>
 	<tr>
-		<td>radarUrl</td> <td>String</td> <td>The URL to query for a radar image.  NWS has gif loops for regional radar at http://radar.weather.gov/lite/.  See http://www.srh.noaa.gov/jetstream/doppler/radarfaq.htm for more details.</td>
+		<td>radarUrl</td> <td>String</td> <td>The URL to query for a radar image.  NWS has gif loops for regional radar at http://radar.weather.gov/lite/.  See http://www.srh.noaa.gov/jetstream/doppler/radarfaq.htm for more details.
+		<br><br>
+		The height & width of the image can be substituted in the URL.  Example:
+		<code>?width=%(radImgSizeX)d&height=%(radImgSizeY)d</code>
+		</td>
 	</tr>
 	<tr>
 		<td>alertBgColor</td> <td>String</td> <td>Background color for the alert text area.</td>
